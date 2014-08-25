@@ -696,6 +696,7 @@ void loop()
 //// include the library code:
 //#include <LiquidCrystal.h>
 //#include <dht11.h>  //Import needed libraries
+//#include <math.h>
 //
 //LiquidCrystal lcd(8, 9, 4, 5, 6, 7);   // initialize the library with the numbers of the interface pins
 //
@@ -715,7 +716,6 @@ void loop()
 //int val = 0;
 //int val2 = 0;
 //int buttonState = 0;
-//
 //
 //void setup()
 //{
@@ -784,7 +784,15 @@ void loop()
 //    {
 //      lcd.setCursor(0,0);
 //      lcd.print(cls);
-//      snprintf(string, LEN, "Temp: %dC", DHT11.temperature); 
+//      
+//      snprintf(
+//        string,
+//        LEN,
+//        "Temp: %dC, %d",
+//        DHT11.temperature,
+//        (int)ceil(convertFtoC(computeHeatIndex(convertCtoF((float)DHT11.temperature), (float)DHT11.humidity)))
+//      );
+//        
 //      lcd.setCursor(0,0);
 //      lcd.print(string);
 //
@@ -826,57 +834,32 @@ void loop()
 //  return (241.88 * T) / (17.558-T);
 //}
 //
-////Serial.print("Read sensor: ");
-////switch (chk)
-////{
-////  case 0: Serial.println("OK"); break;
-////  case -1: Serial.println("Checksum error"); break;
-////  case -2: Serial.println("Time out error"); break;
-////  default: Serial.println("Unknown error"); break;
-////}
+//float convertCtoF(float c)
+//{
+//  return c * 9 / 5 + 32;
+//}
 //
-////Serial.print("Humidity   (%): ");
-////Serial.println((float)DHT11.humidity, 2);
+//float convertFtoC(float f)
+//{
+//  return (f - 32) * 5 / 9;
+//}
 //
-////Serial.print("Temperature (oC): ");
-////Serial.println((float)DHT11.temperature, 2);
+//float computeHeatIndex(float tempFahrenheit, float percentHumidity)
+//{
+//  // Adapted from equation at: https://github.com/adafruit/DHT-sensor-library/issues/9 and
+//  // Wikipedia: http://en.wikipedia.org/wiki/Heat_index
+//  return -42.379 +
+//    2.04901523 * tempFahrenheit +
+//    10.14333127 * percentHumidity +
+//    -0.22475541 * tempFahrenheit*percentHumidity +
+//    -0.00683783 * pow(tempFahrenheit, 2) +
+//    -0.05481717 * pow(percentHumidity, 2) +
+//    0.00122874 * pow(tempFahrenheit, 2) * percentHumidity +
+//    0.00085282 * tempFahrenheit*pow(percentHumidity, 2) +
+//    -0.00000199 * pow(tempFahrenheit, 2) * pow(percentHumidity, 2);
+//}
 //
-////Serial.print("Dew Point (oC): ");
-////Serial.println(dewPoint(DHT11.temperature, DHT11.humidity));
 //
-//
-///*
-//void loop() { 
-// int x;
-// x = analogRead (0);                  // Read the analog value for buttons
-// if (x < 100) {                       // Right button is pressed
-// lcd.setCursor(0,1);
-// lcd.print ("Right "); 
-// }
-// else if (x < 200) {                  // Up button is pressed
-// lcd.setCursor(0,1);
-// lcd.print ("Up    ");
-// }
-// else if (x < 400){                   // Down button is pressed
-// lcd.setCursor(0,1);
-// lcd.print ("Down  "); 
-// }
-// else if (x < 600){                   // Left button is pressed
-// lcd.setCursor(0,1);
-// lcd.print ("Left  ");
-// }
-// else if (x < 800){                   // Select button is pressed
-// lcd.setCursor(0,1);
-// lcd.print ("Select"); }
-// }
-// */
-
-
-
-
-
-
-
 
 
 
